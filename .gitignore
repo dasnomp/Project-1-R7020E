@@ -10,8 +10,6 @@ camera_depth_camera_info/
 *.jpg
 *.jpeg
 
-# Large models
-*.pt
 
 # Python cache
 __pycache__/
