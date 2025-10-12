@@ -1,0 +1,22 @@
+# Large datasets
+datasets/
+camera_color_image_raw/
+camera_depth_image_raw/
+camera_color_camera_info/
+camera_depth_camera_info/
+
+# Images
+*.png
+*.jpg
+*.jpeg
+
+# Large models
+*.pt
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Predictions
+runs/detect/predict/
