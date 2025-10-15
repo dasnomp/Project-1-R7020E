@@ -3,9 +3,12 @@
 ```text
 Project-1-R7020E/
 ├── code/
-│   ├── train.py              # YOLO training script
+│   ├── train.ipynb           # YOLO training script (Python notebook file)
 │   ├── lecture.py            # Test reading images (color + depth)
 │   └── localisation.py       # 3D localization main code
+│
+├── metrics/
+│   ├── images
 │
 ├── datasets/                 # NOT on GitHub (download separately)
 │   ├── train/                # Training images (Roboflow)
@@ -16,5 +19,5 @@ Project-1-R7020E/
 │   └── camera_depth_camera_info/
 │
 └── runs/detect/train/weights/
-    └── best.pt               
+    └── best.pt               # Model weights       
 ```
