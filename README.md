@@ -6,7 +6,9 @@ Project-1-R7020E/
 │   ├── train.ipynb           # YOLO training script (Python notebook file)
 │   ├── lecture.py            # Test reading images (color + depth)
 │   └── localisation.py       # 3D localization main code
-│
+│   └── filteringS.py         # Filtering Sandra
+│   └── filteringR.py         # Filtering Rana
+│  
 ├── metrics/
 │   ├── images
 │
