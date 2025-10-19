@@ -1,0 +1,12 @@
+from ultralytics import YOLO
+
+model = YOLO("runs/detect/train/weights/best.pt")  # load a custom model
+
+model.predict(  # Predict on custom raw images
+    source="Project_1/raw/test/camera_color_image_raw",
+    iou=0.4,
+    conf=0.15,
+    augment=True,
+    imgsz=768,
+    save=True
+)
