@@ -4,8 +4,9 @@
 Project-1-R7020E/
 ├── code/
 │   ├── train.ipynb           # YOLO training script (Python notebook file)
-│   ├── lecture.py            # Test reading images (color + depth)
-│   └── localisation.py       # 3D localization main code
+│   ├── functions.py          # Core pipeline functions for the detection and localization system
+│   └── main.py               # Single image pipeline test
+│   └── time.py               # Real-time detection simulation
 │   └── filteringS.py         # Filtering Sandra
 │   └── filteringR.py         # Filtering Rana
 │  
