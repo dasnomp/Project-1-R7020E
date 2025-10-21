@@ -1,4 +1,4 @@
-from functions import detecter, filter_extinguishers, trouver_depth_pour_rgb, localiser_3d
+from functions import detecter, filter_extinguishers, filter_extinguishers_depth, trouver_depth_pour_rgb, localiser_3d
 import cv2
 import os
 
