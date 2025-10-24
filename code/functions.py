@@ -14,8 +14,8 @@ cy = 201.369491
 DEPTH_SCALE = 0.001               # raw depth units -> meters (0.001 if mm)
 MIN_W_M, MIN_H_M = 0.20, 0.70     # meters, used for depth-aware filtration
 MIN_ASPECT = 1.20                 # tallness h/w, used for depth-aware filtration
-SHRINK_FRAC = 0.08                # inner crop for depth stats, used for depth-aware filtration
-ROUGH_THR_M = 0.001                # plane residual MAD (m), used for depth-aware filtration
+SHRINK_FRAC = 0.25                # inner crop for depth stats, used for depth-aware filtration
+ROUGH_THR_M = 0.05            # plane residual MAD (m), used for depth-aware filtration
 
 
 
@@ -86,7 +86,7 @@ def _metric_filter_boxes(
         valid = dep_patch_raw[(dep_patch_raw > 0) & np.isfinite(dep_patch_raw)]
         if valid.size < 50: dropped.append(((x1, y1, x2, y2), "no_depth")); continue
 
-        Z = float(np.median(valid))# * depth_scale
+        Z = float(np.median(valid)) * depth_scale
         if not np.isfinite(Z) or Z <= 0: dropped.append(((x1, y1, x2, y2), "invalid_Z")); continue
 
         w_px = x2 - x1 + 1;
@@ -109,6 +109,7 @@ def _metric_filter_boxes(
             continue
 
         rough = _plane_residual_mad(dep_patch_raw * depth_scale)
+        #print(f' rough: {rough}, thresh: {roughness_thr}')
         if np.isnan(rough):
             dropped.append(((x1, y1, x2, y2), "rough_nan"))
             print('rough is nan')
@@ -155,13 +156,13 @@ def filter_extinguishers_depth(
         depth_lookup_fn=None  # pass trouver_depth_pour_rgb; if None we'll import lazily
 ):
     """
-    Same interface & returns as your original filter_extinguishers(...),
-    but uses depth chosen by `trouver_depth_pour_rgb` (no prebuilt mapping).
+    Same interface & returns as filter_extinguishers(...),
+    but uses depth chosen by `trouver_depth_pour_rgb`.
     """
     # lazy import to avoid circular import if this lives in functions.py too
-    if depth_lookup_fn is None:
-        from functions import trouver_depth_pour_rgb
-        depth_lookup_fn = trouver_depth_pour_rgb
+    #if depth_lookup_fn is None:
+    #   from functions import trouver_depth_pour_rgb
+    #    depth_lookup_fn = trouver_depth_pour_rgb
 
     rgb_name = os.path.basename(str(rgb_path))
 
@@ -171,7 +172,7 @@ def filter_extinguishers_depth(
 
     depth = None
     if depth_path and os.path.exists(depth_path):
-        depth = cv2.imread(depth_path) #, cv2.IMREAD_UNCHANGED)
+        depth = cv2.imread(depth_path, cv2.IMREAD_UNCHANGED)
 
         if depth is not None and depth.ndim == 3:
             depth = cv2.cvtColor(depth, cv2.COLOR_BGR2GRAY)
@@ -221,7 +222,6 @@ def filter_extinguishers_depth(
     print(f"    [metric] dropped={len(drop_boxes)} kept={len(kept_boxes)}")
     print(f"    Sauvegardé: {save_path}")
     return detections_valides, save_path
-
 
 
 
