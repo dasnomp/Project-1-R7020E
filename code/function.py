@@ -461,9 +461,8 @@ def plot_3d_timeline(all_data, output_path='results/3d_timeline.png'):
     cbar = plt.colorbar(scatter, ax=ax, pad=0.1)
     cbar.set_label('Frame Number (Time →)', fontsize=11)
     
-    # Grid and legend
+    # Grid
     ax.grid(True, alpha=0.3)
-    ax.legend(fontsize=10)
     ax.view_init(elev=25, azim=45)
     
     # Save

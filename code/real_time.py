@@ -1,12 +1,12 @@
 # time.py (version with video recording)
-from f import detecter, filter_extinguishers, trouver_depth_pour_rgb, localiser_3d,filter_extinguishers_depth,plot_3d_timeline
+from function import detecter, filter_extinguishers, trouver_depth_pour_rgb, localiser_3d,filter_extinguishers_depth,plot_3d_timeline
 import cv2
 import os
 import time
 
 # Configuration
-color_dir = "datasets/camera_color_image_raw/camera_color_image_raw"
-depth_dir = "datasets/camera_depth_image_raw/camera_depth_image_raw"
+color_dir = "datasets/Project_1/raw/test/camera_color_image_raw"
+depth_dir = "datasets/Project_1/raw/test/camera_depth_image_raw"
 
 rgb_images = sorted([f for f in os.listdir(color_dir) if f.endswith('.png')])
 

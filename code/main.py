@@ -1,11 +1,10 @@
-from functions import detecter, filter_extinguishers, filter_extinguishers_depth, trouver_depth_pour_rgb, localiser_3d
+from function import detecter, filter_extinguishers, filter_extinguishers_depth, trouver_depth_pour_rgb, localiser_3d
 import cv2
 import os
 
-
 # Chemin de l'image RGB
-rgb_path = "C:/Users/rayha/ProjetRL7020E/datasets/camera_color_image_raw/camera_color_image_raw/camera_color_image_1727164479163392418.png"
-depth_folder = "camera_depth_image_raw"
+rgb_path = "datasets/Project_1/raw/test/camera_color_image_raw/camera_color_image_1727164491495515300.png"
+depth_folder = "datasets/Project_1/raw/test/camera_depth_image_raw"
 
 # Charger l'image RGB
 rgb_img = cv2.imread(rgb_path)
@@ -18,10 +17,8 @@ detections = detecter(rgb_img)
 detections_valides, image_filtree_path = filter_extinguishers(detections, rgb_img, rgb_path)
 image_name = os.path.basename(image_filtree_path)
 
-
-
 # 3. TROUVER L'IMAGE DEPTH
-depth_path = trouver_depth_pour_rgb(image_name, "datasets/camera_depth_image_raw/camera_depth_image_raw")
+depth_path = trouver_depth_pour_rgb(image_name, depth_folder)
 
 
 if depth_path is None:

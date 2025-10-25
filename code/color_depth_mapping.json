@@ -1,0 +1,362 @@
+{
+  "color_dir": "datasets/Project_1/raw/test/camera_color_image_raw",
+  "depth_dir": "datasets/Project_1/raw/test/camera_depth_image_raw",
+  "timestamp_note": "Mapped by nearest filename-inferred timestamp (last integer in stem).",
+  "max_ts_gap": null,
+  "color2depth": {
+    "camera_color_image_1727164479163392418.png": "camera_color_image_1727164479163392418.png",
+    "camera_color_image_1727164479188921739.png": "camera_color_image_1727164479188921739.png",
+    "camera_color_image_1727164479642452488.png": "camera_color_image_1727164479642452488.png",
+    "camera_color_image_1727164480113027319.png": "camera_color_image_1727164480113027319.png",
+    "camera_color_image_1727164480137294916.png": "camera_color_image_1727164480137294916.png",
+    "camera_color_image_1727164480583837249.png": "camera_color_image_1727164480583837249.png",
+    "camera_color_image_1727164480605217463.png": "camera_color_image_1727164480605217463.png",
+    "camera_color_image_1727164481103673510.png": "camera_color_image_1727164481103673510.png",
+    "camera_color_image_1727164481126952830.png": "camera_color_image_1727164481126952830.png",
+    "camera_color_image_1727164481633105969.png": "camera_color_image_1727164481633105969.png",
+    "camera_color_image_1727164481671315159.png": "camera_color_image_1727164481671315159.png",
+    "camera_color_image_1727164482161164762.png": "camera_color_image_1727164482161164762.png",
+    "camera_color_image_1727164482206618665.png": "camera_color_image_1727164482206618665.png",
+    "camera_color_image_1727164483237382359.png": "camera_color_image_1727164483237382359.png",
+    "camera_color_image_1727164483260379845.png": "camera_color_image_1727164483260379845.png",
+    "camera_color_image_1727164483747862226.png": "camera_color_image_1727164483747862226.png",
+    "camera_color_image_1727164483782209540.png": "camera_color_image_1727164483782209540.png",
+    "camera_color_image_1727164484249585421.png": "camera_color_image_1727164484249585421.png",
+    "camera_color_image_1727164484776018973.png": "camera_color_image_1727164484776018973.png",
+    "camera_color_image_1727164484803780508.png": "camera_color_image_1727164484803780508.png",
+    "camera_color_image_1727164484826121354.png": "camera_color_image_1727164484826121354.png",
+    "camera_color_image_1727164485340294837.png": "camera_color_image_1727164485340294837.png",
+    "camera_color_image_1727164485375956352.png": "camera_color_image_1727164485375956352.png",
+    "camera_color_image_1727164485850357452.png": "camera_color_image_1727164485850357452.png",
+    "camera_color_image_1727164485882972273.png": "camera_color_image_1727164485882972273.png",
+    "camera_color_image_1727164486318607389.png": "camera_color_image_1727164486318607389.png",
+    "camera_color_image_1727164486747705999.png": "camera_color_image_1727164486747705999.png",
+    "camera_color_image_1727164486782056457.png": "camera_color_image_1727164486782056457.png",
+    "camera_color_image_1727164487228706223.png": "camera_color_image_1727164487228706223.png",
+    "camera_color_image_1727164487250114547.png": "camera_color_image_1727164487250114547.png",
+    "camera_color_image_1727164487675369230.png": "camera_color_image_1727164487675369230.png",
+    "camera_color_image_1727164487705105733.png": "camera_color_image_1727164487705105733.png",
+    "camera_color_image_1727164488165496376.png": "camera_color_image_1727164488165496376.png",
+    "camera_color_image_1727164488196923753.png": "camera_color_image_1727164488196923753.png",
+    "camera_color_image_1727164488644751093.png": "camera_color_image_1727164488644751093.png",
+    "camera_color_image_1727164489096204360.png": "camera_color_image_1727164489096204360.png",
+    "camera_color_image_1727164489128163460.png": "camera_color_image_1727164489128163460.png",
+    "camera_color_image_1727164489602382610.png": "camera_color_image_1727164489602382610.png",
+    "camera_color_image_1727164489642344395.png": "camera_color_image_1727164489642344395.png",
+    "camera_color_image_1727164489664315612.png": "camera_color_image_1727164489664315612.png",
+    "camera_color_image_1727164490119192529.png": "camera_color_image_1727164490119192529.png",
+    "camera_color_image_1727164490139583991.png": "camera_color_image_1727164490139583991.png",
+    "camera_color_image_1727164490611981183.png": "camera_color_image_1727164490611981183.png",
+    "camera_color_image_1727164491059956811.png": "camera_color_image_1727164491059956811.png",
+    "camera_color_image_1727164491495515300.png": "camera_color_image_1727164491495515300.png",
+    "camera_color_image_1727164491521357657.png": "camera_color_image_1727164491521357657.png",
+    "camera_color_image_1727164491956940713.png": "camera_color_image_1727164491956940713.png",
+    "camera_color_image_1727164491984161704.png": "camera_color_image_1727164491984161704.png",
+    "camera_color_image_1727164492481546065.png": "camera_color_image_1727164492481546065.png",
+    "camera_color_image_1727164492506734638.png": "camera_color_image_1727164492506734638.png",
+    "camera_color_image_1727164492911462544.png": "camera_color_image_1727164492911462544.png",
+    "camera_color_image_1727164493405777501.png": "camera_color_image_1727164493405777501.png",
+    "camera_color_image_1727164493435302614.png": "camera_color_image_1727164493435302614.png",
+    "camera_color_image_1727164493943785809.png": "camera_color_image_1727164493943785809.png",
+    "camera_color_image_1727164493961026410.png": "camera_color_image_1727164493961026410.png",
+    "camera_color_image_1727164493980923168.png": "camera_color_image_1727164493980923168.png",
+    "camera_color_image_1727164494430280740.png": "camera_color_image_1727164494430280740.png",
+    "camera_color_image_1727164494486233573.png": "camera_color_image_1727164494486233573.png",
+    "camera_color_image_1727164494933146219.png": "camera_color_image_1727164494933146219.png",
+    "camera_color_image_1727164494961457849.png": "camera_color_image_1727164494961457849.png",
+    "camera_color_image_1727164495398834068.png": "camera_color_image_1727164495398834068.png",
+    "camera_color_image_1727164495420412991.png": "camera_color_image_1727164495420412991.png",
+    "camera_color_image_1727164495842831821.png": "camera_color_image_1727164495842831821.png",
+    "camera_color_image_1727164495861849308.png": "camera_color_image_1727164495861849308.png",
+    "camera_color_image_1727164496326597728.png": "camera_color_image_1727164496326597728.png",
+    "camera_color_image_1727164496345041761.png": "camera_color_image_1727164496345041761.png",
+    "camera_color_image_1727164496755447998.png": "camera_color_image_1727164496755447998.png",
+    "camera_color_image_1727164496786698027.png": "camera_color_image_1727164496786698027.png",
+    "camera_color_image_1727164497263736130.png": "camera_color_image_1727164497263736130.png",
+    "camera_color_image_1727164497280011508.png": "camera_color_image_1727164497280011508.png",
+    "camera_color_image_1727164497753643947.png": "camera_color_image_1727164497753643947.png",
+    "camera_color_image_1727164497779347791.png": "camera_color_image_1727164497779347791.png",
+    "camera_color_image_1727164498181626591.png": "camera_color_image_1727164498181626591.png",
+    "camera_color_image_1727164498198341928.png": "camera_color_image_1727164498198341928.png",
+    "camera_color_image_1727164498631667599.png": "camera_color_image_1727164498631667599.png",
+    "camera_color_image_1727164498653006249.png": "camera_color_image_1727164498653006249.png",
+    "camera_color_image_1727164499127243202.png": "camera_color_image_1727164499127243202.png",
+    "camera_color_image_1727164499571001068.png": "camera_color_image_1727164499571001068.png",
+    "camera_color_image_1727164499598482478.png": "camera_color_image_1727164499598482478.png",
+    "camera_color_image_1727164499978108199.png": "camera_color_image_1727164499978108199.png",
+    "camera_color_image_1727164500441100775.png": "camera_color_image_1727164500441100775.png",
+    "camera_color_image_1727164500472787296.png": "camera_color_image_1727164500472787296.png",
+    "camera_color_image_1727164500907673583.png": "camera_color_image_1727164500907673583.png",
+    "camera_color_image_1727164500934329754.png": "camera_color_image_1727164500934329754.png",
+    "camera_color_image_1727164501404887591.png": "camera_color_image_1727164501404887591.png",
+    "camera_color_image_1727164501433802487.png": "camera_color_image_1727164501433802487.png",
+    "camera_color_image_1727164501452269633.png": "camera_color_image_1727164501452269633.png",
+    "camera_color_image_1727164501903281197.png": "camera_color_image_1727164501903281197.png"
+  },
+  "depth2colors": {
+    "camera_color_image_1727164479163392418.png": [
+      "camera_color_image_1727164479163392418.png"
+    ],
+    "camera_color_image_1727164479188921739.png": [
+      "camera_color_image_1727164479188921739.png"
+    ],
+    "camera_color_image_1727164479642452488.png": [
+      "camera_color_image_1727164479642452488.png"
+    ],
+    "camera_color_image_1727164480113027319.png": [
+      "camera_color_image_1727164480113027319.png"
+    ],
+    "camera_color_image_1727164480137294916.png": [
+      "camera_color_image_1727164480137294916.png"
+    ],
+    "camera_color_image_1727164480583837249.png": [
+      "camera_color_image_1727164480583837249.png"
+    ],
+    "camera_color_image_1727164480605217463.png": [
+      "camera_color_image_1727164480605217463.png"
+    ],
+    "camera_color_image_1727164481103673510.png": [
+      "camera_color_image_1727164481103673510.png"
+    ],
+    "camera_color_image_1727164481126952830.png": [
+      "camera_color_image_1727164481126952830.png"
+    ],
+    "camera_color_image_1727164481633105969.png": [
+      "camera_color_image_1727164481633105969.png"
+    ],
+    "camera_color_image_1727164481671315159.png": [
+      "camera_color_image_1727164481671315159.png"
+    ],
+    "camera_color_image_1727164482161164762.png": [
+      "camera_color_image_1727164482161164762.png"
+    ],
+    "camera_color_image_1727164482206618665.png": [
+      "camera_color_image_1727164482206618665.png"
+    ],
+    "camera_color_image_1727164483237382359.png": [
+      "camera_color_image_1727164483237382359.png"
+    ],
+    "camera_color_image_1727164483260379845.png": [
+      "camera_color_image_1727164483260379845.png"
+    ],
+    "camera_color_image_1727164483747862226.png": [
+      "camera_color_image_1727164483747862226.png"
+    ],
+    "camera_color_image_1727164483782209540.png": [
+      "camera_color_image_1727164483782209540.png"
+    ],
+    "camera_color_image_1727164484249585421.png": [
+      "camera_color_image_1727164484249585421.png"
+    ],
+    "camera_color_image_1727164484776018973.png": [
+      "camera_color_image_1727164484776018973.png"
+    ],
+    "camera_color_image_1727164484803780508.png": [
+      "camera_color_image_1727164484803780508.png"
+    ],
+    "camera_color_image_1727164484826121354.png": [
+      "camera_color_image_1727164484826121354.png"
+    ],
+    "camera_color_image_1727164485340294837.png": [
+      "camera_color_image_1727164485340294837.png"
+    ],
+    "camera_color_image_1727164485375956352.png": [
+      "camera_color_image_1727164485375956352.png"
+    ],
+    "camera_color_image_1727164485850357452.png": [
+      "camera_color_image_1727164485850357452.png"
+    ],
+    "camera_color_image_1727164485882972273.png": [
+      "camera_color_image_1727164485882972273.png"
+    ],
+    "camera_color_image_1727164486318607389.png": [
+      "camera_color_image_1727164486318607389.png"
+    ],
+    "camera_color_image_1727164486747705999.png": [
+      "camera_color_image_1727164486747705999.png"
+    ],
+    "camera_color_image_1727164486782056457.png": [
+      "camera_color_image_1727164486782056457.png"
+    ],
+    "camera_color_image_1727164487228706223.png": [
+      "camera_color_image_1727164487228706223.png"
+    ],
+    "camera_color_image_1727164487250114547.png": [
+      "camera_color_image_1727164487250114547.png"
+    ],
+    "camera_color_image_1727164487675369230.png": [
+      "camera_color_image_1727164487675369230.png"
+    ],
+    "camera_color_image_1727164487705105733.png": [
+      "camera_color_image_1727164487705105733.png"
+    ],
+    "camera_color_image_1727164488165496376.png": [
+      "camera_color_image_1727164488165496376.png"
+    ],
+    "camera_color_image_1727164488196923753.png": [
+      "camera_color_image_1727164488196923753.png"
+    ],
+    "camera_color_image_1727164488644751093.png": [
+      "camera_color_image_1727164488644751093.png"
+    ],
+    "camera_color_image_1727164489096204360.png": [
+      "camera_color_image_1727164489096204360.png"
+    ],
+    "camera_color_image_1727164489128163460.png": [
+      "camera_color_image_1727164489128163460.png"
+    ],
+    "camera_color_image_1727164489602382610.png": [
+      "camera_color_image_1727164489602382610.png"
+    ],
+    "camera_color_image_1727164489642344395.png": [
+      "camera_color_image_1727164489642344395.png"
+    ],
+    "camera_color_image_1727164489664315612.png": [
+      "camera_color_image_1727164489664315612.png"
+    ],
+    "camera_color_image_1727164490119192529.png": [
+      "camera_color_image_1727164490119192529.png"
+    ],
+    "camera_color_image_1727164490139583991.png": [
+      "camera_color_image_1727164490139583991.png"
+    ],
+    "camera_color_image_1727164490611981183.png": [
+      "camera_color_image_1727164490611981183.png"
+    ],
+    "camera_color_image_1727164491059956811.png": [
+      "camera_color_image_1727164491059956811.png"
+    ],
+    "camera_color_image_1727164491495515300.png": [
+      "camera_color_image_1727164491495515300.png"
+    ],
+    "camera_color_image_1727164491521357657.png": [
+      "camera_color_image_1727164491521357657.png"
+    ],
+    "camera_color_image_1727164491956940713.png": [
+      "camera_color_image_1727164491956940713.png"
+    ],
+    "camera_color_image_1727164491984161704.png": [
+      "camera_color_image_1727164491984161704.png"
+    ],
+    "camera_color_image_1727164492481546065.png": [
+      "camera_color_image_1727164492481546065.png"
+    ],
+    "camera_color_image_1727164492506734638.png": [
+      "camera_color_image_1727164492506734638.png"
+    ],
+    "camera_color_image_1727164492911462544.png": [
+      "camera_color_image_1727164492911462544.png"
+    ],
+    "camera_color_image_1727164493405777501.png": [
+      "camera_color_image_1727164493405777501.png"
+    ],
+    "camera_color_image_1727164493435302614.png": [
+      "camera_color_image_1727164493435302614.png"
+    ],
+    "camera_color_image_1727164493943785809.png": [
+      "camera_color_image_1727164493943785809.png"
+    ],
+    "camera_color_image_1727164493961026410.png": [
+      "camera_color_image_1727164493961026410.png"
+    ],
+    "camera_color_image_1727164493980923168.png": [
+      "camera_color_image_1727164493980923168.png"
+    ],
+    "camera_color_image_1727164494430280740.png": [
+      "camera_color_image_1727164494430280740.png"
+    ],
+    "camera_color_image_1727164494486233573.png": [
+      "camera_color_image_1727164494486233573.png"
+    ],
+    "camera_color_image_1727164494933146219.png": [
+      "camera_color_image_1727164494933146219.png"
+    ],
+    "camera_color_image_1727164494961457849.png": [
+      "camera_color_image_1727164494961457849.png"
+    ],
+    "camera_color_image_1727164495398834068.png": [
+      "camera_color_image_1727164495398834068.png"
+    ],
+    "camera_color_image_1727164495420412991.png": [
+      "camera_color_image_1727164495420412991.png"
+    ],
+    "camera_color_image_1727164495842831821.png": [
+      "camera_color_image_1727164495842831821.png"
+    ],
+    "camera_color_image_1727164495861849308.png": [
+      "camera_color_image_1727164495861849308.png"
+    ],
+    "camera_color_image_1727164496326597728.png": [
+      "camera_color_image_1727164496326597728.png"
+    ],
+    "camera_color_image_1727164496345041761.png": [
+      "camera_color_image_1727164496345041761.png"
+    ],
+    "camera_color_image_1727164496755447998.png": [
+      "camera_color_image_1727164496755447998.png"
+    ],
+    "camera_color_image_1727164496786698027.png": [
+      "camera_color_image_1727164496786698027.png"
+    ],
+    "camera_color_image_1727164497263736130.png": [
+      "camera_color_image_1727164497263736130.png"
+    ],
+    "camera_color_image_1727164497280011508.png": [
+      "camera_color_image_1727164497280011508.png"
+    ],
+    "camera_color_image_1727164497753643947.png": [
+      "camera_color_image_1727164497753643947.png"
+    ],
+    "camera_color_image_1727164497779347791.png": [
+      "camera_color_image_1727164497779347791.png"
+    ],
+    "camera_color_image_1727164498181626591.png": [
+      "camera_color_image_1727164498181626591.png"
+    ],
+    "camera_color_image_1727164498198341928.png": [
+      "camera_color_image_1727164498198341928.png"
+    ],
+    "camera_color_image_1727164498631667599.png": [
+      "camera_color_image_1727164498631667599.png"
+    ],
+    "camera_color_image_1727164498653006249.png": [
+      "camera_color_image_1727164498653006249.png"
+    ],
+    "camera_color_image_1727164499127243202.png": [
+      "camera_color_image_1727164499127243202.png"
+    ],
+    "camera_color_image_1727164499571001068.png": [
+      "camera_color_image_1727164499571001068.png"
+    ],
+    "camera_color_image_1727164499598482478.png": [
+      "camera_color_image_1727164499598482478.png"
+    ],
+    "camera_color_image_1727164499978108199.png": [
+      "camera_color_image_1727164499978108199.png"
+    ],
+    "camera_color_image_1727164500441100775.png": [
+      "camera_color_image_1727164500441100775.png"
+    ],
+    "camera_color_image_1727164500472787296.png": [
+      "camera_color_image_1727164500472787296.png"
+    ],
+    "camera_color_image_1727164500907673583.png": [
+      "camera_color_image_1727164500907673583.png"
+    ],
+    "camera_color_image_1727164500934329754.png": [
+      "camera_color_image_1727164500934329754.png"
+    ],
+    "camera_color_image_1727164501404887591.png": [
+      "camera_color_image_1727164501404887591.png"
+    ],
+    "camera_color_image_1727164501433802487.png": [
+      "camera_color_image_1727164501433802487.png"
+    ],
+    "camera_color_image_1727164501452269633.png": [
+      "camera_color_image_1727164501452269633.png"
+    ],
+    "camera_color_image_1727164501903281197.png": [
+      "camera_color_image_1727164501903281197.png"
+    ]
+  }
+}

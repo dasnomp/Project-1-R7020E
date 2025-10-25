@@ -4,7 +4,7 @@ import cv2
 import math
 
 # Load the trained model
-model = YOLO(r"C:\Users\rano1\Desktop\Project_1\best.pt")
+model = YOLO(r"runs/detect/train/weights/best.pt")
 
 # A4. A3 dimensions in millimeters (real-world size)
 A4_WIDTH_MM = 210  # width
@@ -53,8 +53,8 @@ def filter_extinguishers(result, min_conf=0.05, min_size=(50, 50)):
     return keep_boxes, keep_scores, keep_cls, decoy_boxes
 
 # Path to the directory with test images
-color_dir = r"C:\Users\rano1\Desktop\Project_1\raw\test\camera_color_image_raw"
-output_dir = r"C:\Users\rano1\Desktop\Project_1\runs\Filtered_out_decoys"
+color_dir = r"datasets/Project_1/raw/test/camera_color_image_raw"
+output_dir = r"datasets/Project_1/runs/Filtered_out_decoys"
 
 # Create the output directory 
 os.makedirs(output_dir, exist_ok=True)

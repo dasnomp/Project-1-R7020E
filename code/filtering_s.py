@@ -4,9 +4,9 @@
 # =======================
 # CONFIG — set paths here
 # =======================
-COLOR_DIR   = "test_files/test/test/camera_color_image_raw"
-DEPTH_DIR   = "test_files/test/test/camera_depth_image_raw"
-WEIGHTS     = "best.pt"
+COLOR_DIR   = "datasets/Project_1/raw/test/camera_color_image_raw"
+DEPTH_DIR   = "datasets/Project_1/raw/test/camera_depth_image_raw"
+WEIGHTS     = "runs/detect/train/weights/best.pt"
 
 # Camera intrinsics (pixels)
 FX = 306.00024
