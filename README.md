@@ -3,10 +3,9 @@
 ```text
 Project-1-R7020E/
 ├── code/
-│   ├── train.ipynb           # YOLO training script (Python notebook file)
-│   ├── functions.py          # Core pipeline functions for the detection and localization system
-│   └── main.py               # Single image pipeline test
-│   └── time.py               # Real-time detection simulation
+│   ├── main.py                     # Entry point (runs detection → filtering → 3D)
+│   └── function.py                 # All core functions (YOLO, filtering, depth lookup, 3D, 3D visualization)
+│   └── real_time.py                # Real-time detection with video recording
 │   └── filteringS.py         # Filtering Sandra
 │   └── filteringR.py         # Filtering Rana
 │  
