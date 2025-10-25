@@ -15,7 +15,8 @@ Detect fire extinguishers in RGB images with YOLO, filter out printed decoys usi
 Project-1-R7020E/
 ├── code/
 │   ├── main.py                     # Entry point (runs detection → filtering → 3D)
-│   └── functions.py                # All core functions (YOLO, filtering, depth lookup, 3D)
+│   └── function.py                 # All core functions (YOLO, filtering, depth lookup, 3D, 3D visualization)
+│   └── real_time.py                # Real-time detection with video recording
 │
 ├── datasets/                       # Not tracked in git – place your data here
 │   ├── camera_color_image_raw/     # RGB images
@@ -39,6 +40,7 @@ Project-1-R7020E/
   - `ultralytics`
   - `opencv-python`
   - `numpy`
+  - `matplotlib`       # **for 3D visualization**
 
 Install (local):
 ```bash
@@ -75,6 +77,25 @@ pip install ultralytics opencv-python numpy
 4. **3D localization**: `localiser_3d(...)` computes (X, Y, Z) at the bbox center using the pinhole model.
 
 ---
+## Real-Time Detection 
+
+Process all images sequentially, record a video, and visualize 3D positions over time.
+
+### Features
+- Process entire dataset frame-by-frame
+- Display live detection window
+- Record video with annotations (FPS, frame count, 3D coordinates)
+- Generate 3D timeline visualization 
+
+### Run Real-Time Detection
+```bash
+python code/real_time.py
+```
+
+**Controls:**
+- Video automatically saves to `results/detection_realtime_(s/r).mp4` (depends on the filtering method used)
+- 3D plot saves to `results/3d_timeline.png`
+
 
 ## Run
 

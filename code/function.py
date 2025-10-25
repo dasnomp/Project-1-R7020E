@@ -1,4 +1,5 @@
 from ultralytics import YOLO
+import numpy as np
 import cv2
 import os
 
@@ -47,9 +48,9 @@ def detecter(image_rgb):
 def _shrink_box(x1, y1, x2, y2, W, H, margin=0.08):
     bw, bh = x2 - x1 + 1, y2 - y1 + 1
     dx, dy = int(bw * margin), int(bh * margin)
-    nx1 = max(0, x1 + dx);
+    nx1 = max(0, x1 + dx)
     ny1 = max(0, y1 + dy)
-    nx2 = min(W - 1, x2 - dx);
+    nx2 = min(W - 1, x2 - dx)
     ny2 = min(H - 1, y2 - dy)
     if nx2 <= nx1 or ny2 <= ny1: return x1, y1, x2, y2
     return nx1, ny1, nx2, ny2
@@ -89,7 +90,7 @@ def _metric_filter_boxes(
         Z = float(np.median(valid)) * depth_scale
         if not np.isfinite(Z) or Z <= 0: dropped.append(((x1, y1, x2, y2), "invalid_Z")); continue
 
-        w_px = x2 - x1 + 1;
+        w_px = x2 - x1 + 1
         h_px = y2 - y1 + 1
         width_m = (w_px * Z) / float(fx)
         height_m = (h_px * Z) / float(fy)
@@ -409,3 +410,67 @@ def localiser_3d(detections_filtrees, depth_path):
     print(f"    {len(positions)} extincteurs localisés en 3D")
     
     return positions
+
+
+
+# ===== FUNCTION 4: 3D VISUALIZATION =====
+def plot_3d_timeline(all_data, output_path='results/3d_timeline.png'):
+    """
+    Creates a 3D plot of positions over time.
+    
+    Args:
+        all_data: List of tuples (frame, X, Y, Z)
+        output_path: Path to save the figure
+    """
+    import matplotlib.pyplot as plt
+    from mpl_toolkits.mplot3d import Axes3D
+    
+    if not all_data:
+        print("No data to plot")
+        return
+    
+    print(f"\nCreating 3D plot with {len(all_data)} points...")
+    
+    # Extract data
+    frames = [d[0] for d in all_data]
+    X = [d[1] for d in all_data]
+    Y = [d[2] for d in all_data]
+    Z = [d[3] for d in all_data]
+    
+    # Create figure
+    fig = plt.figure(figsize=(8, 6))
+    ax = fig.add_subplot(111, projection='3d')
+    
+    # Points colored by time
+    scatter = ax.scatter(X, Y, Z, 
+                        c=frames,
+                        cmap='coolwarm',  # Blue → Red
+                        s=100,
+                        alpha=0.7)
+    
+
+    
+    # Labels
+    ax.set_xlabel('X (meters)', fontsize=11)
+    ax.set_ylabel('Y (meters)', fontsize=11)
+    ax.set_zlabel('Z (meters)', fontsize=11)
+    ax.set_title(f'3D Positions Over Time ({len(all_data)} detections)', 
+                fontsize=13, fontweight='bold')
+    
+    # Colorbar
+    cbar = plt.colorbar(scatter, ax=ax, pad=0.1)
+    cbar.set_label('Frame Number (Time →)', fontsize=11)
+    
+    # Grid and legend
+    ax.grid(True, alpha=0.3)
+    ax.legend(fontsize=10)
+    ax.view_init(elev=25, azim=45)
+    
+    # Save
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    print(f"Plot saved: {output_path}")
+    
+    # Show
+    plt.show()
+    plt.close()
