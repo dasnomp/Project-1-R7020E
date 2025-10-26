@@ -3,6 +3,7 @@ from function import detect, filter_extinguishers, find_depth_for_rgb, localize_
 import cv2
 import os
 import time
+import numpy as np
 
 # Configuration
 color_dir = "datasets/Project_1/raw/test/camera_color_image_raw"
@@ -43,7 +44,7 @@ print(f" Resolution: {width}x{height}")
 print("   Press 'q' to stop\n")
 
 all_data = []
-
+pipeline_times = []
 
 # ===== LOOP =====
 for i, rgb_filename in enumerate(rgb_images):
@@ -55,11 +56,14 @@ for i, rgb_filename in enumerate(rgb_images):
     
     if rgb_img is None:
         continue
-    
+
+    # ⏱️ Start timer for pipeline
+    t0 = time.perf_counter()
+
     # Pipeline
     detections = detect(rgb_img)
-    detections_valides, image_filtree_path = filter_extinguishers(detections, rgb_img, rgb_path)
-    #detections_valides, image_filtree_path = filter_extinguishers_depth(detections, rgb_img, rgb_path, depth_folder = depth_dir) # switch to this for alt. filter
+    #detections_valides, image_filtree_path = filter_extinguishers(detections, rgb_img, rgb_path)
+    detections_valides, image_filtree_path = filter_extinguishers_depth(detections, rgb_img, rgb_path, depth_folder = depth_dir) # switch to this for alt. filter
     depth_path = find_depth_for_rgb(os.path.basename(image_filtree_path), depth_dir)
     
     if depth_path:
@@ -69,6 +73,10 @@ for i, rgb_filename in enumerate(rgb_images):
     else:
         positions = []
     
+    # ⏱️ End timer for pipeline
+    t1 = time.perf_counter()
+    pipeline_times.append(t1 - t0)
+
     # Processing FPS
     fps_traitement = 1.0 / (time.time() - start_time)
     
@@ -112,3 +120,9 @@ print(f"\n Video saved: {output_video}")
 print(f"   Duration: {len(rgb_images) / fps_dataset:.1f} seconds")
 
 plot_3d_timeline(all_data, 'results/3d_timeline_s.png')
+
+avg_time = np.mean(pipeline_times)
+avg_fps = 1.0 / avg_time
+
+print(f"\n✅ Average model+filtering+localisation time: {avg_time*1000:.2f} ms/frame")
+print(f"✅ Average core FPS: {avg_fps:.2f}")
