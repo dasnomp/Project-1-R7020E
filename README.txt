@@ -8,25 +8,35 @@ Detect fire extinguishers in RGB images with YOLO, filter out printed decoys usi
 - *Add names + IDs here*
 
 ---
-
-## Repository Structure
+## Project Structure
 
 ```
 Project-1-R7020E/
 ├── code/
 │   ├── main.py                     # Entry point (runs detection → filtering → 3D)
-│   └── function.py                 # All core functions (YOLO, filtering, depth lookup, 3D, 3D visualization)
+│   └── function.py                 # All core functions (YOLO, filtering, depth lookup, 3D visualization)
 │   └── real_time.py                # Real-time detection with video recording
+│   └── train.ipynb                 # Training script for Google Colab
+│  
+├── metrics/
+│   ├── images
 │
-├── datasets/                       # Not tracked in git – place your data here
-│   ├── camera_color_image_raw/     # RGB images
-│   └── camera_depth_image_raw/     # Depth images
-│       └── camera_depth_image_raw/ # (your main.py example points to this subfolder)
+├── datasets/                
+│   ├── Project_1
+│       └── raw/test
+│            └── camera_color_image_raw/      # RGB images
+│            └── camera_depth_image_raw/      # Depth images
+│            └── camera_color_camera_info/    # Camera calibration
+│            └── camera_depth_camera_info/    # Camera calibration
+│            .
+│            .
+│   ├── FireExtinguisher
+│       └── train                     # Training data (Roboflow)
+│       └── valid                     # Validation data (Roboflow)
+│           .
 │
-├── runs/detect/train/weights/
-│   └── best.pt                     # YOLO weights (Ultralytics)
-│
-└── results/                        # Output images saved by the filters (created at run time)
+└── runs/detect/train/weights/
+    └── best.pt               # Model weights       
 ```
 
 > Adjust the folder names to your actual layout if different.
@@ -99,14 +109,6 @@ python code/real_time.py
 
 ## Run
 
-Edit paths in `code/main.py`:
-
-```python
-rgb_path = "C:/Users/.../datasets/camera_color_image_raw/camera_color_image_raw/<your_rgb_file>.png"
-depth_folder = "camera_depth_image_raw"  # or set to your depth folder root
-```
-
-Then run:
 ```bash
 python code/main.py
 ```
