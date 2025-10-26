@@ -7,6 +7,7 @@ Detect fire extinguishers in RGB images with YOLO, filter out printed decoys usi
 ## Team
 - Nima Safaee / nimsaf-0
 - Sandra Sandström / marsan-4
+- ZAABOUL Rayhane / raulz19
 
 ---
 ## Project Structure
