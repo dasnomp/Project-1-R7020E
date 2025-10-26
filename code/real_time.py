@@ -1,5 +1,5 @@
 # time.py (version with video recording)
-from function import detecter, filter_extinguishers, trouver_depth_pour_rgb, localiser_3d,filter_extinguishers_depth,plot_3d_timeline
+from function import detect, filter_extinguishers, find_depth_for_rgb, localize_3d,filter_extinguishers_depth,plot_3d_timeline
 import cv2
 import os
 import time
@@ -57,13 +57,13 @@ for i, rgb_filename in enumerate(rgb_images):
         continue
     
     # Pipeline
-    detections = detecter(rgb_img)
-    #detections_valides, image_filtree_path = filter_extinguishers(detections, rgb_img, rgb_path)
-    detections_valides, image_filtree_path = filter_extinguishers_depth(detections, rgb_img, rgb_path, depth_folder = depth_dir) # switch to this for alt. filter
-    depth_path = trouver_depth_pour_rgb(os.path.basename(image_filtree_path), depth_dir)
+    detections = detect(rgb_img)
+    detections_valides, image_filtree_path = filter_extinguishers(detections, rgb_img, rgb_path)
+    #detections_valides, image_filtree_path = filter_extinguishers_depth(detections, rgb_img, rgb_path, depth_folder = depth_dir) # switch to this for alt. filter
+    depth_path = find_depth_for_rgb(os.path.basename(image_filtree_path), depth_dir)
     
     if depth_path:
-        positions = localiser_3d(detections_valides, depth_path)
+        positions = localize_3d(detections_valides, depth_path)
         for pos in positions:
             all_data.append((i, pos['X'], pos['Y'], pos['Z']))
     else:
