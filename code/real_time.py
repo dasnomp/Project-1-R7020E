@@ -59,7 +59,7 @@ for i, rgb_filename in enumerate(rgb_images):
     # Pipeline
     detections = detecter(rgb_img)
     #detections_valides, image_filtree_path = filter_extinguishers(detections, rgb_img, rgb_path)
-    detections_valides, image_filtree_path = filter_extinguishers_depth(detections, rgb_img, rgb_path, depth_dir) # switch to this for alt. filter
+    detections_valides, image_filtree_path = filter_extinguishers_depth(detections, rgb_img, rgb_path, depth_folder = depth_dir) # switch to this for alt. filter
     depth_path = trouver_depth_pour_rgb(os.path.basename(image_filtree_path), depth_dir)
     
     if depth_path:
