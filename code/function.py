@@ -13,11 +13,10 @@ cy = 201.369491
 
 # ====== Other parameters ====
 DEPTH_SCALE = 0.001               # raw depth units -> meters (0.001 if mm)
-MIN_W_M, MIN_H_M = 0.20, 0.70     # meters, used for depth-aware filtration
-MIN_ASPECT = 1.20                 # tallness h/w, used for depth-aware filtration
-SHRINK_FRAC = 0.25                # inner crop for depth stats, used for depth-aware filtration
-ROUGH_THR_M = 0.05            # plane residual MAD (m), used for depth-aware filtration
-
+MIN_W_M, MIN_H_M = 0.20, 0.70     # meters, used for depth-aware filtering
+MIN_ASPECT = 1.20                 # tallness h/w, used for depth-aware filtering
+SHRINK_FRAC = 0.25                # inner crop for depth stats, used for depth-aware filtering
+ROUGH_THR_M = 0.05                # plane residual MAD (m), used for depth-aware filtering
 
 
 
@@ -25,26 +24,24 @@ model_path = 'runs/detect/train/weights/best.pt'
 model = YOLO(model_path)
 
 
-# ===== FONCTION 1: DÉTECTION =====
-def detecter(image_rgb):
+# ===== FUNCTION 1: DETECTION =====
+def detect(image_rgb):
     """
-    Détecte les extincteurs avec YOLO
+    Detects fire extinguishers using YOLO.
     
     Args:
-        image_rgb: Image RGB (numpy array)
+        image_rgb: RGB image (numpy array)
     
     Returns:
-        Liste de boxes YOLO
+        List of YOLO boxes
     """
     results = model(image_rgb, verbose=False)
     detections = results[0].boxes
-    
-    
     return detections
 
 
 
-# ---- helpers for depth-aware filtration ----
+# ---- helpers for depth-aware filtering ----
 def _shrink_box(x1, y1, x2, y2, W, H, margin=0.08):
     bw, bh = x2 - x1 + 1, y2 - y1 + 1
     dx, dy = int(bw * margin), int(bh * margin)
@@ -85,10 +82,14 @@ def _metric_filter_boxes(
         ix1, iy1, ix2, iy2 = _shrink_box(x1, y1, x2, y2, W, H, margin=shrink)
         dep_patch_raw = depth_img_raw[iy1:iy2 + 1, ix1:ix2 + 1].astype(np.float32)
         valid = dep_patch_raw[(dep_patch_raw > 0) & np.isfinite(dep_patch_raw)]
-        if valid.size < 50: dropped.append(((x1, y1, x2, y2), "no_depth")); continue
+        if valid.size < 50: 
+            dropped.append(((x1, y1, x2, y2), "no_depth"))
+            continue
 
         Z = float(np.median(valid)) * depth_scale
-        if not np.isfinite(Z) or Z <= 0: dropped.append(((x1, y1, x2, y2), "invalid_Z")); continue
+        if not np.isfinite(Z) or Z <= 0: 
+            dropped.append(((x1, y1, x2, y2), "invalid_Z"))
+            continue
 
         w_px = x2 - x1 + 1
         h_px = y2 - y1 + 1
@@ -110,7 +111,6 @@ def _metric_filter_boxes(
             continue
 
         rough = _plane_residual_mad(dep_patch_raw * depth_scale)
-        #print(f' rough: {rough}, thresh: {roughness_thr}')
         if np.isnan(rough):
             dropped.append(((x1, y1, x2, y2), "rough_nan"))
             print('rough is nan')
@@ -150,35 +150,28 @@ def _draw(img_bgr, boxes_xyxy, color, thickness=2, labels=None):
     return out
 
 
-# Depth aware filtration function
+# Depth-aware filtering
 def filter_extinguishers_depth(
         detections, rgb_img, rgb_path, output_dir="results",
-        depth_folder = None,
-        depth_lookup_fn=None  # pass trouver_depth_pour_rgb; if None we'll import lazily
+        depth_folder=None,
+        depth_lookup_fn=None
 ):
     """
-    Same interface & returns as filter_extinguishers(...),
-    but uses depth chosen by `trouver_depth_pour_rgb`.
+    Same interface and return values as filter_extinguishers(...),
+    but uses depth chosen by `find_depth_for_rgb`.
     """
-    # lazy import to avoid circular import if this lives in functions.py too
-    #if depth_lookup_fn is None:
-    #   from functions import trouver_depth_pour_rgb
-    #    depth_lookup_fn = trouver_depth_pour_rgb
-
     rgb_name = os.path.basename(str(rgb_path))
 
     # 1) Find matching depth path by timestamp
-
-    depth_path = trouver_depth_pour_rgb(rgb_name, depth_folder)
+    depth_path = find_depth_for_rgb(rgb_name, depth_folder)
 
     depth = None
     if depth_path and os.path.exists(depth_path):
-        depth = cv2.imread(depth_path, cv2.IMREAD_UNCHANGED)
-
+        #depth = cv2.imread(depth_path, cv2.IMREAD_UNCHANGED)
         if depth is not None and depth.ndim == 3:
             depth = cv2.cvtColor(depth, cv2.COLOR_BGR2GRAY)
 
-    # 2) If no usable depth, just draw/keep all
+    # 2) If no usable depth, keep all
     if (depth is None) or (depth.shape[:2] != rgb_img.shape[:2]):
         img_display = rgb_img.copy()
         boxes_xyxy = _detections_to_xyxy(detections)
@@ -199,13 +192,13 @@ def filter_extinguishers_depth(
         shrink=SHRINK_FRAC, roughness_thr=ROUGH_THR_M
     )
 
-    # 4) Map back to original YOLO boxes by exact coordinate match
+    # 4) Map back to original YOLO boxes
     kept_set = {tuple(k["box"]) for k in kept}
-    detections_valides = []
+    valid_detections = []
     for b in detections:
         x1, y1, x2, y2 = b.xyxy[0].cpu().numpy().astype(int).tolist()
         if (x1, y1, x2, y2) in kept_set:
-            detections_valides.append(b)
+            valid_detections.append(b)
 
     # 5) Draw and save
     img_display = rgb_img.copy()
@@ -221,33 +214,33 @@ def filter_extinguishers_depth(
     cv2.imwrite(save_path, img_display)
 
     print(f"    [metric] dropped={len(drop_boxes)} kept={len(kept_boxes)}")
-    print(f"    Sauvegardé: {save_path}")
-    return detections_valides, save_path
+    print(f"    Saved: {save_path}")
+    return valid_detections, save_path
 
 
 
-# ===== FONCTION 2: FILTRAGE, filter on paper size ratio =====
+# ===== FUNCTION 2: BASIC FILTERING =====
 def filter_extinguishers(detections, rgb_img, rgb_path, output_dir="results"):
     """
-    Filtre les decoys et sauvegarde l'image
+    Filters decoys and saves the image.
     
     Args:
-        detections: Détections YOLO brutes
-        rgb_img: Image RGB (numpy array)
-        rgb_path: Chemin de l'image RGB originale
-        output_dir: Dossier de sortie
+        detections: Raw YOLO detections
+        rgb_img: RGB image (numpy array)
+        rgb_path: Path to the original RGB image
+        output_dir: Output directory
     
     Returns:
-        detections_valides, save_path
+        valid_detections, save_path
     """
-    # Dimensions A4/A3
+    # A4/A3 paper dimensions
     A4_WIDTH_MM = 210
     A4_HEIGHT_MM = 297
     A3_WIDTH_MM = 297
     A3_HEIGHT_MM = 420
     
     img_display = rgb_img.copy()
-    detections_valides = []
+    valid_detections = []
     nb_decoys = 0
     
     for box in detections:
@@ -257,18 +250,18 @@ def filter_extinguishers(detections, rgb_img, rgb_path, output_dir="results"):
         w = x2 - x1
         h = y2 - y1
         
-        # Filtre 1: Confidence et taille
+        # Filter 1: Confidence and size
         if confidence < 0.05 or w < 50 or h < 50:
             nb_decoys += 1
             continue
         
-        # Filtre 2: Aspect ratio
+        # Filter 2: Aspect ratio
         aspect_ratio = h / w
         if 1.3 < aspect_ratio < 1.5:
             nb_decoys += 1
             continue
         
-        # Filtre 3: Taille A4/A3
+        # Filter 3: Paper-like sizes
         if ((0.9 * A4_WIDTH_MM <= w <= 1.1 * A4_WIDTH_MM and 
              0.9 * A4_HEIGHT_MM <= h <= 1.1 * A4_HEIGHT_MM) or
             (0.9 * A3_WIDTH_MM <= w <= 1.1 * A3_WIDTH_MM and 
@@ -276,74 +269,63 @@ def filter_extinguishers(detections, rgb_img, rgb_path, output_dir="results"):
             nb_decoys += 1
             continue
         
-        # C'est un vrai extincteur !
-        detections_valides.append(box)
+        # Real extinguisher
+        valid_detections.append(box)
         
-        # DESSINER
+        # Draw box
         cv2.rectangle(img_display, (x1, y1), (x2, y2), (0, 255, 0), 2)
         cv2.putText(img_display, f"EXT {confidence:.2f}", (x1, max(0, y1 - 6)),
                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1, cv2.LINE_AA)
     
-    # Sauvegarder
+    # Save
     os.makedirs(output_dir, exist_ok=True)
     filename = os.path.basename(rgb_path)
     save_path = os.path.join(output_dir, filename)
     cv2.imwrite(save_path, img_display)
     
-    print(f"    Filtrage: {nb_decoys} decoys, {len(detections_valides)} valides")
-    print(f"    Sauvegardé: {save_path}")
+    print(f"    Filtering: {nb_decoys} decoys, {len(valid_detections)} valid")
+    print(f"    Saved: {save_path}")
     
-    return detections_valides, save_path
+    return valid_detections, save_path
 
 
 
-
-
-
-
-def trouver_depth_pour_rgb(rgb_image_name, depth_folder):
+def find_depth_for_rgb(rgb_image_name, depth_folder):
     """
-    Trouve l'image Depth qui correspond à une image RGB
+    Finds the corresponding depth image for a given RGB image.
     
     Args:
-        rgb_image_name (str): Nom de l'image RGB 
+        rgb_image_name (str): RGB image name 
                               Ex: "camera_color_image_1727164479163392418.png"
-        depth_folder (str): Chemin vers le dossier des images depth
+        depth_folder (str): Path to the folder containing depth images
         
     Returns:
-        str: Nom de l'image depth correspondante
-             Ex: "camera_depth_image_1727164479142848725.png"
-             ou None si pas trouvée
+        str: Full path of corresponding depth image
+             or None if not found
     """
     
-    # 1. Extraire le timestamp de l'image RGB
+    # 1. Extract timestamp from RGB image name
     timestamp_rgb = rgb_image_name.replace('camera_color_image_', '').replace('.png', '')
     
-    # 2. Prendre les 10 premiers chiffres (les secondes)
+    # 2. Keep the first 10 digits (seconds)
     secondes_rgb = timestamp_rgb[:10]
     
-    # 3. Lister toutes les images depth
+    # 3. List all depth images
     depth_images = [f for f in os.listdir(depth_folder) if f.endswith('.png')]
     
-    # 4. Chercher les images depth avec les mêmes secondes
+    # 4. Find depth images with same seconds
     candidates = []
-    
     for depth_img in depth_images:
         timestamp_depth = depth_img.replace('camera_depth_image_', '').replace('.png', '')
         secondes_depth = timestamp_depth[:10]
-        
-        # Si même seconde, c'est un candidat
         if secondes_depth == secondes_rgb:
-            # Calculer la différence pour trouver la plus proche
             diff = abs(int(timestamp_rgb) - int(timestamp_depth))
             candidates.append((depth_img, diff))
     
-    # 5. Si on a trouvé des candidats, prendre le plus proche
+    # 5. Pick the closest timestamp
     if candidates:
         candidates.sort(key=lambda x: x[1])
         depth_name = candidates[0][0]
-        
-        # Retourner le CHEMIN COMPLET
         depth_path = os.path.join(depth_folder, depth_name)
         return depth_path
     
@@ -351,49 +333,44 @@ def trouver_depth_pour_rgb(rgb_image_name, depth_folder):
 
 
 
-
-
-
-
-
-# ===== FONCTION 3: LOCALISATION 3D =====
-def localiser_3d(detections_filtrees, depth_path):
+# ===== FUNCTION 3: 3D LOCALIZATION =====
+def localize_3d(filtered_detections, depth_path):
     """
-    Calcule la position 3D de chaque extincteur
+    Computes the 3D position of each extinguisher.
     
     Args:
-        detections_filtrees: Liste de boxes filtrées
-        depth_path: CHEMIN COMPLET de l'image depth
+        filtered_detections: List of filtered boxes
+        depth_path: Full path of the depth image
     
     Returns:
-        Liste de positions 3D
+        List of 3D positions
     """
-    # 1. Charger l'image depth
+    # 1. Load depth image
     depth_img = cv2.imread(depth_path, cv2.IMREAD_UNCHANGED)
     
     if depth_img is None:
-        print(f"   Impossible de charger : {depth_path}")
+        print(f"   Unable to load: {depth_path}")
         return []
     
-    print(f"    Depth chargée : {os.path.basename(depth_path)}")
+    print(f"    Depth loaded: {os.path.basename(depth_path)}")
     
-    # 2. Calcul 3D
+    # 2. 3D computation
     positions = []
     
-    for i, box in enumerate(detections_filtrees):
+    for i, box in enumerate(filtered_detections):
         x1, y1, x2, y2 = box.xyxy[0].cpu().numpy().astype(int)
         confidence = float(box.conf[0])
         
-        # Centre du bbox
+        # Center of bbox
         cx_box = (x1 + x2) // 2
         cy_box = (y1 + y2) // 2
         
-        # Profondeur au centre
+        # Depth at center
         Z_mm = float(depth_img[cy_box, cx_box])
         Z = Z_mm / 1000.0  # mm → m
         
         if Z > 0:
-            # Calcul position 3D
+            # Compute 3D position
             X = (cx_box - cx) * Z / fx
             Y = (cy_box - cy) * Z / fy
             
@@ -407,7 +384,7 @@ def localiser_3d(detections_filtrees, depth_path):
                 'confidence': confidence
             })
     
-    print(f"    {len(positions)} extincteurs localisés en 3D")
+    print(f"    {len(positions)} extinguishers localized in 3D")
     
     return positions
 
@@ -417,59 +394,60 @@ def localiser_3d(detections_filtrees, depth_path):
 def plot_3d_timeline(all_data, output_path='results/3d_timeline.png'):
     """
     Creates a 3D plot of positions over time.
-    
+
     Args:
         all_data: List of tuples (frame, X, Y, Z)
         output_path: Path to save the figure
     """
     import matplotlib.pyplot as plt
     from mpl_toolkits.mplot3d import Axes3D
-    
+
     if not all_data:
         print("No data to plot")
         return
-    
+
     print(f"\nCreating 3D plot with {len(all_data)} points...")
-    
+
     # Extract data
     frames = [d[0] for d in all_data]
     X = [d[1] for d in all_data]
     Y = [d[2] for d in all_data]
     Z = [d[3] for d in all_data]
-    
+
     # Create figure
     fig = plt.figure(figsize=(8, 6))
     ax = fig.add_subplot(111, projection='3d')
-    
+
     # Points colored by time
-    scatter = ax.scatter(X, Y, Z, 
+    scatter = ax.scatter(X, Y, Z,
                         c=frames,
-                        cmap='coolwarm',  # Blue → Red
+                        cmap='coolwarm',  # Blue â†’ Red
                         s=100,
                         alpha=0.7)
-    
 
-    
+
+
     # Labels
     ax.set_xlabel('X (meters)', fontsize=11)
     ax.set_ylabel('Y (meters)', fontsize=11)
     ax.set_zlabel('Z (meters)', fontsize=11)
-    ax.set_title(f'3D Positions Over Time ({len(all_data)} detections)', 
+    ax.set_title(f'3D Positions Over Time ({len(all_data)} detections)',
                 fontsize=13, fontweight='bold')
-    
+
     # Colorbar
     cbar = plt.colorbar(scatter, ax=ax, pad=0.1)
-    cbar.set_label('Frame Number (Time →)', fontsize=11)
-    
-    # Grid
+    cbar.set_label('Frame Number (Time a†’)', fontsize=11)
+
+    # Grid and legend
     ax.grid(True, alpha=0.3)
+    ax.legend(fontsize=10)
     ax.view_init(elev=25, azim=45)
-    
+
     # Save
     plt.tight_layout()
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     print(f"Plot saved: {output_path}")
-    
+
     # Show
     plt.show()
     plt.close()
