@@ -39,9 +39,6 @@ Project-1-R7020E/
     └── best.pt               # Model weights       
 ```
 
-> Adjust the folder names to your actual layout if different.
-
----
 
 ## Requirements
 
