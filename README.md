@@ -17,7 +17,7 @@ Project-1-R7020E/
 │   ├── main.py                     # Entry point (runs detection → filtering → 3D)
 │   └── function.py                 # All core functions (YOLO, filtering, depth lookup, 3D visualization)
 │   └── real_time.py                # Real-time detection with video recording
-│   └── train.ipynb                 # Training script for Google Colab
+│   └── train.ipynb                 # Training script for model
 │  
 ├── metrics/
 │   ├── images
