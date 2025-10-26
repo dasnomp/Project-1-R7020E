@@ -1,6 +1,6 @@
 # Project-1-R7020E — Fire Extinguisher Detection & 3D Localization
 
-Detect fire extinguishers in RGB images with YOLO, filter out printed decoys using **depth roughness + real size**, and estimate **3D positions** from camera intrinsics and a depth map matched by timestamp.
+Detect fire extinguishers in RGB images with YOLO, filter out printed decoys using **depth roughness + real size** or A4-ratio, and estimate **3D positions** from camera intrinsics and a depth map matched by timestamp.
 
 ---
 
