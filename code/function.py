@@ -167,7 +167,7 @@ def filter_extinguishers_depth(
 
     depth = None
     if depth_path and os.path.exists(depth_path):
-        #depth = cv2.imread(depth_path, cv2.IMREAD_UNCHANGED)
+        depth = cv2.imread(depth_path, cv2.IMREAD_UNCHANGED)
         if depth is not None and depth.ndim == 3:
             depth = cv2.cvtColor(depth, cv2.COLOR_BGR2GRAY)
 
@@ -442,6 +442,10 @@ def plot_3d_timeline(all_data, output_path='results/3d_timeline.png'):
     ax.grid(True, alpha=0.3)
     ax.legend(fontsize=10)
     ax.view_init(elev=25, azim=45)
+
+    ax.set_xlim([-0.6, 0.4])
+    ax.set_ylim([-0.3, 0.2]) 
+    ax.set_zlim([0, 5])
 
     # Save
     plt.tight_layout()
