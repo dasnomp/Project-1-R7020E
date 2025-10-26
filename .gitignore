@@ -4,5 +4,5 @@
 # Python
 __pycache__/
 *.pyc
-# Venv (behåll lokalt, inte i repo)
+# Venv (keep locally, not in repo)
 .venv/
